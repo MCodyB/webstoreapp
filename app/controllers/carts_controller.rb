@@ -1,8 +1,13 @@
 class CartsController < ApplicationController
   before_filter :signed_in_user, only: [:update, :destroy]
 
-  def index
-    @cart = session[:cart]
+  def show
+    @orders = []
+    session[:cart].each do |product_id, quantity|
+      @orders << Order.new(user_id: current_user.id,
+                           product_id: product_id,
+                           quantity: quantity)
+    end
   end
 
   def update

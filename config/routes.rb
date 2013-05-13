@@ -5,6 +5,7 @@ WebstoreApp::Application.routes.draw do
   resources :users
   resource :cart, except: [:new, :edit, :create]
   resources :products, only: [:index]
+  resources :orders, only: [:create]
 
   match "/signup", to: "users#new"
   match "/signin", to: "sessions#new"
