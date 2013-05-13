@@ -1,0 +1,7 @@
+<%= form_for(:cart, url: cart_url, method: :put) do |f| %>
+
+  <% Product.all.each do |product| %>
+  <% %>
+    <%= link_to product.name, products_path(product)%>
+
+<% end %>

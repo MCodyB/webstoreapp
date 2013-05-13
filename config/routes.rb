@@ -3,8 +3,10 @@ WebstoreApp::Application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
   resources :users
+  resource :cart, except: [:new, :edit, :create]
 
   match "/signup", to: "users#new"
   match "/signin", to: "sessions#new"
+  match "/signout", to: "sessions#destroy"
 
 end
