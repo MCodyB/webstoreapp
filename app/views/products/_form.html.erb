@@ -1,7 +1,10 @@
 <%= form_for(:cart, url: cart_url, method: :put) do |f| %>
 
-  <% Product.all.each do |product| %>
-  <% %>
-    <%= link_to product.name, products_path(product)%>
+  <% @products.each do |product| %>
+    <%= product.name %>
+    <input type="text" name="cart[<%= product.id %>]" value="0">
+    <br>
+  <% end %>
 
+  <%= f.submit "Add to cart"%>
 <% end %>

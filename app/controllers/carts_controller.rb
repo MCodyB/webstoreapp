@@ -1,12 +1,27 @@
 class CartsController < ApplicationController
+  before_filter :signed_in_user, only: [:update, :destroy]
+
+  def index
+    @cart = session[:cart]
+  end
+
   def update
-    cookies.permanent[:cart] ||= Hash.new(0)
+    session[:cart] ||= {}
     params[:cart].each do |product_id, change|
-      cookies.permanent[:cart][product_id] += change
+      session[:cart][product_id] ||= 0
+      session[:cart][product_id] += change.to_i
     end
+    redirect_to products_path, notice: "Cart updated!"
   end
 
   def destroy
-    cookies.delete[:cart]
+    session[:cart] = nil
+    redirect_to products_path, notice: "Cart emptied."
+  end
+
+  private
+
+  def signed_in_user
+    redirect_to signin_url, notice: "Only signed in users" unless signed_in?
   end
 end
