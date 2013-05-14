@@ -1,0 +1,17 @@
+<h1>Order Confirmation</h1>
+
+<%= form_for(:orders, url: order_url) do |f| %>
+  <ul>
+    <% session[:cart].each do |p_id, o_q| %>
+    <input type="hidden" name="orders[product_ids][]" value="<%= order.product_id %>">
+    <input type="hidden" name="orders[quantities][]" value="<%= order.quantity %>">
+      <li>
+        <%= Product.find(p_id).name %><br>
+        <%= "Quantity: #{o_q}"%>
+        <%= "Cost: #{Product.find(p_id).cost * o_q.to_i}"%>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= f.submit "Confirm" %>
+<% end %>
